@@ -10,6 +10,7 @@ class grid :
 
 	# load(data)载入谜题data
 	def load(self, data) :
+		self.__init__()
 		data = list(data)
 		cell_id = 0
 		if len(data) == 81 :
@@ -90,6 +91,30 @@ class grid :
 		# 为该候选数(value)去除单元格(cell_id)所关联格上的可选标记
 		for i in self.cell_id(self.relationCell(cell_id)) :
 			self.number(value)._delOpt(i)
+	# delOpt(cells_id, numbers) 为指定单元格删除候选数, 并同步number的候选位置
+	def delOpt(self, cell_id, number) :
+		result = []
+		if isinstance(cell_id, list) :
+			for c_id in cell_id :
+				res = self.cell(c_id)._delOpt(number)
+				if res :
+					result.append(res)
+		elif isinstance(cell_id, int) :
+			res = self.cell(cell_id)._delOpt(number)
+			if res :
+				result.append(res)
+		if isinstance(number, list) :
+			for num in number :
+				res = self.number(num)._delOpt(cell_id)
+				if res :
+					result.append(res)
+		elif isinstance(number, int) :
+			res = self.number(number)._delOpt(cell_id)
+			if res :
+				result.append(res)
+		if len(result) : 
+			return result
+
 
 	## 输出网格数据
 	## ---
@@ -288,15 +313,27 @@ class cell:
 	# _delOpt(opt)删除候选数
 	# opt可以为列表或单个int数值
 	def _delOpt(self, opt) :
+		result = []
 		if isinstance(opt, list) :
 			for i in opt :
 				if self.hasOpt(i) :
 					self.__couldBe.remove(i)
+					result.append([self.__id, i])
 		elif isinstance(opt, int) :
 			if self.hasOpt(opt) :
 				self.__couldBe.remove(opt)
+				result.append([self.__id, opt])
 		else :
 			print "type(opt) should be 'list' or 'int' !"
+		if len(result) :
+			return result
+
+	# getUnitDict() 返回单元格所属组
+	def getUnitDict(self) :
+		row = convertor.id2Row(self.__id)
+		box = convertor.id2Box(self.__id)
+		column = convertor.id2Column(self.__id)
+		return {UNITTYPE[0]: row, UNITTYPE[3]: column, UNITTYPE[1]: box}
 
 
 # number
@@ -326,15 +363,21 @@ class number:
 	# _delOpt(in_cells)删除指定候选位置
 	# opt可以为列表或单个int数值
 	def _delOpt(self, in_cells) :
+		result = []
 		if isinstance(in_cells, list) :
 			for i in in_cells :
 				if self.hasOpt(i) :
 					self.__couldAt.remove(i)
+					result.append([i, self.__id])
 		elif isinstance(in_cells, int) :
 			if self.hasOpt(in_cells) :
 				self.__couldAt.remove(in_cells)
+				result.append([in_cells, self.__id])
 		else :
 			print "type(in_cells) should be 'list' or 'int' !"
+		if len(result) :
+			return result
+
 
 #try:
 # grid = grid()
