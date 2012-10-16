@@ -1,6 +1,5 @@
 #coding=utf-8
 # Filename: convertor.py
-
 import math
 
 # --Convertor--
