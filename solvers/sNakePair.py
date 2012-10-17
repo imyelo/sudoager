@@ -1,15 +1,15 @@
 #coding=utf-8
 # Filename: sNakePair.py
 from solver import solver
+import grid
 
 # sNakePair 显性对数法
 class sNakePair(solver) :
 
 	def __init__(self) :
-		solver.__init__(self, complexity = 3, name = "sNakePair", type = "opt")
+		solver.__init__(self, complexity = 3, name = "sNakePair", type = "opt", printChart = True)
 		
 	def solve(self, sudoku) :
-		sudoku.grid().printAllOpt()
 		cell_with_two_opt = [ sudoku.grid().cell(i) for i in range(81) if sudoku.grid().cell(i).len() == 2 ]
 		cell_with_two_opt.sort()
 		if len(cell_with_two_opt) > 1 :
@@ -25,5 +25,4 @@ class sNakePair(solver) :
 								if res :
 									for r in res[0] :
 										self._matching(r[0], r[1])
-		sudoku.grid().printAllOpt()
 		return self

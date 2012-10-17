@@ -2,6 +2,7 @@
 # Filename : sudoku.py
 import sys
 sys.path.append("base")
+import md5
 import grid
 import solvers
 
@@ -16,6 +17,7 @@ class sudoku:
 	# run 遍历方法解题
 	def run(self) :
 		complexity = 0
+		hash = []
 		solvers = sorted(self.solver, key = lambda x : x.complexity())	
 		while True :
 			if self.grid().check() :
@@ -24,8 +26,10 @@ class sudoku:
 
 			for solver in solvers :
 				if complexity < solver.complexity() : complexity = solver.complexity()
-				sign = solver.run(self)
+				result_of_solver = solver.run(self)
+				sign = result_of_solver['count']
 				if sign > 0 :
+					hash.extend(result_of_solver['hash'])
 					break
 			if sign > 0 :
 				continue
@@ -33,6 +37,7 @@ class sudoku:
 			print " == == Puzzle Unfinished == == "
 			break
 		print "Complexity Level :", complexity
+		print "Hash of Process :", md5.new('='.join(hash)).hexdigest()
 		return self
 
 	# loadSolver 载入解题方法

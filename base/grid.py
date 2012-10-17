@@ -28,13 +28,23 @@ class grid :
 			if type != 2 and type >= 0 and type < 4 :
 				return unit(self, type, unit_id)
 	# allUnit(g_unit_id)由range(27)返回指定组, 不需要写type参数, 方便遍历
-	def allUnit(self, g_unit_id) :
-		if g_unit_id in range(27) :
-			type = g_unit_id / 9
-			if type == 2 :
-				type = 3
-			unit_id = g_unit_id % 9
-			return unit(self, type, unit_id)
+	def allUnit(self, g_unit_id = None) :
+		if g_unit_id == None :
+			units = []
+			for i in range(27) :
+				type = i / 9
+				if type == 2 :
+					type = 3
+				unit_id = i % 9
+				units.append(unit(self, type, unit_id))
+			return units
+		else :
+			if g_unit_id in range(27) :
+				type = g_unit_id / 9
+				if type == 2 :
+					type = 3
+				unit_id = g_unit_id % 9
+				return unit(self, type, unit_id)
 	# cell()返回所有单元格[81]
 	# cell(i)返回指定单元格
 	def cell(self, cell_id = None) :
