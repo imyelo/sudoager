@@ -14,7 +14,7 @@ for s in solversList :
 	exec ('from ' + s + ' import ' + s)
 	exec ('classes.append(' + s + '())')
 
-
+import sLink
 
 # from sNakeSingle import sNakeSingle
 # from sHideSingle import sHideSingle

@@ -1,8 +1,8 @@
 #coding=utf-8
 # Filename: solver.py
-# import sys
-# sys.path.append("..")
-# sys.path.append("../base")
+import sys
+sys.path.append("..")
+sys.path.append("../base")
 import convertor
 import grid
 
