@@ -80,5 +80,5 @@ class sLink(solver):
         return False
 
 
-test = sLink()
-test.start(1)
+# test = sLink()
+# test.start(1)

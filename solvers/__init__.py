@@ -4,15 +4,15 @@
 # sys.path.append("..")
 # sys.path.append("../base")
 
-solversList = 	[ 	'sNakeSingle',
-					'sHideSingle',
-					'sNakePair'
-				]
+solversList = ['sNakeSingle',
+    'sHideSingle',
+    'sNakePair'
+    ]
 
 classes = []
-for s in solversList :
-	exec ('from ' + s + ' import ' + s)
-	exec ('classes.append(' + s + '())')
+for s in solversList:
+    exec ('from ' + s + ' import ' + s)
+    exec ('classes.append(' + s + '())')
 
 import sLink
 
@@ -23,7 +23,7 @@ import sLink
 # __all__ = ['solver', 'sNakeSingle', 'sHideSingle', 'sNakePair']
 
 
-# SOLVERS_LIST = 	[	sNakeSingle(), 
-# 					sHideSingle(),
-# 					sNakePair()
-# 				]
+# SOLVERS_LIST =     [    sNakeSingle(), 
+#                     sHideSingle(),
+#                     sNakePair()
+#                 ]
